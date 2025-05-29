@@ -1,17 +1,27 @@
+// index.js
 const express = require('express');
+const cors = require('cors');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
-app.get('/receberMensagem', (req, res) => {
-  console.log('Requisição recebida de um cliente HTTP');
-  res.send('Mensagem recebida com sucesso!');
-});
+app.use(cors());
 
+app.use(express.json());
+
+
+// Endpoint teste
 app.get('/', (req, res) => {
-  console.log('Requisição recebida de um cliente HTTP');
-  res.send('Mensagem recebida com sucesso!');
+  res.json({
+    mensagem1: "Rafael chupa pinto Clark!",
+    mensagem2: "Guilherme Cu de Mel Vieira!"
+  });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Servidor HTTP rodando em http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
+
+
+
