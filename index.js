@@ -13,8 +13,7 @@ app.use(express.json());
 // Endpoint teste
 app.get('/', (req, res) => {
   res.json({
-    mensagem1: "Rafael chupa pinto Clark!",
-    mensagem2: "Guilherme Cu de Mel Vieira!"
+    mensagem1: "Conectou con o server"
   });
 });
 
