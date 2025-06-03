@@ -1,26 +1,31 @@
-// index.js
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+
+import statsRoutes from './routes/statsRoutes.js';
+import deviceRoutes from './routes/deviceRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import settingsRoutes from './routes/settingsRoutes.js';
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-
 app.use(express.json());
 
+// Rotas
+app.use('/stats', statsRoutes);
+app.use('/devices', deviceRoutes);
+app.use('/notifications', notificationRoutes);
+app.use('/settings', settingsRoutes);
 
-// Endpoint teste
+// Rota raiz para teste
 app.get('/', (req, res) => {
-  res.json({
-    mensagem1: "Conectou con o server"
-  });
+  res.send('API funcionando 🚀');
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
-
-
-
-
