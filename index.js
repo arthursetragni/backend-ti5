@@ -1,7 +1,7 @@
 const express = require('express');
+const dotenv = require('dotenv')
+const cors = require('cors')
 
-import dotenv from 'dotenv';
-import cors from 'cors';
 
 // import statsRoutes from './routes/statsRoutes.js';
 // import deviceRoutes from './routes/deviceRoutes.js';
