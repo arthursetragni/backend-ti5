@@ -26,6 +26,14 @@ app.get('/', (req, res) => {
   res.send('API funcionando 🚀');
 });
 
+app.post('/teste', (req, res) => {
+  console.log(req.body); 
+  res.json({
+    mensagem: 'Corpo recebido com sucesso ✅',
+    dadosRecebidos: req.body,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
