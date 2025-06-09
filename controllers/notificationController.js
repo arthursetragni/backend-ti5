@@ -1,4 +1,6 @@
-export async function getNotifications(req, res) {
+const Device = require('../models/Device');
+
+async function getNotifications(req, res) {
   try {
     const { status } = req.query;
 
@@ -11,7 +13,8 @@ export async function getNotifications(req, res) {
     res.status(500).json({ message: 'Erro ao buscar dispositivos detectados', error });
   }
 }
-export async function toggleNotifications(req, res) {
+
+async function toggleNotifications(req, res) {
   try {
     const { status } = req.query;
 
@@ -24,3 +27,8 @@ export async function toggleNotifications(req, res) {
     res.status(500).json({ message: 'Erro ao buscar dispositivos detectados', error });
   }
 }
+
+module.exports = {
+  getNotifications,
+  toggleNotifications,
+};

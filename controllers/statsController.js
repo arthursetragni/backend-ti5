@@ -1,4 +1,4 @@
-export const getStatsOverview = (req, res) => {
+const getStatsOverview = (req, res) => {
   res.json({
     totalDispositivos: 23,
     totalUsuarios: 7,
@@ -8,7 +8,7 @@ export const getStatsOverview = (req, res) => {
   });
 };
 
-export const getFrequentUsers = (req, res) => {
+const getFrequentUsers = (req, res) => {
   res.json([
     { mac: 'AA:BB:CC:DD:EE:01', vezes: 34 },
     { mac: 'AA:BB:CC:DD:EE:02', vezes: 29 },
@@ -18,9 +18,15 @@ export const getFrequentUsers = (req, res) => {
   ]);
 };
 
-export const getDevicesPerDay = (req, res) => {
+const getDevicesPerDay = (req, res) => {
   res.json({
     dias: ['2025-06-01', '2025-06-02', '2025-06-03'],
     dispositivos: [5, 8, 4],
   });
+};
+
+module.exports = {
+  getStatsOverview,
+  getFrequentUsers,
+  getDevicesPerDay,
 };

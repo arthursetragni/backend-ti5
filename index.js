@@ -1,15 +1,12 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-
-import statsRoutes from './routes/statsRoutes.js';
-import deviceRoutes from './routes/deviceRoutes.js';
-import notificationRoutes from './routes/notificationRoutes.js';
-import settingsRoutes from './routes/settingsRoutes.js';
-import connectDB from './config/db.js';
-import mongoose from 'mongoose';
-
-//connectDB();
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const statsRoutes = require('./routes/statsRoutes.js');
+const deviceRoutes = require('./routes/deviceRoutes.js');
+const notificationRoutes = require('./routes/notificationRoutes.js');
+const settingsRoutes = require('./routes/settingsRoutes.js');
+const connectDB = require('./config/db.js');
+const mongoose = require('mongoose');
 
 dotenv.config();
 
@@ -18,7 +15,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
 
 app.use('/stats', statsRoutes);
 app.use('/devices', deviceRoutes);
@@ -37,9 +33,7 @@ app.post('/teste', (req, res) => {
   });
 });
 
-
 const MONGODB_URI = process.env.MONGODB_URI;
-
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,

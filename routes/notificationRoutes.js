@@ -1,13 +1,12 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   getNotifications,
   toggleNotifications,
-} from '../controllers/notificationController.js';
+} = require('../controllers/notificationController');
 
 const router = express.Router();
 
-
-router.get('/', getNotifications);         // Lista de notificações recentes
+router.get('/', getNotifications);           // Lista de notificações recentes
 router.post('/toggle', toggleNotifications); // Ativar/desativar notificações
 
-export default router;
+module.exports = router;

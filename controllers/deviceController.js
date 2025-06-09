@@ -1,7 +1,7 @@
-import Device from '../models/Device.js';
+const Device = require('../models/Device');
 
 // GET /devices/detected
-export async function getDetectedDevices(req, res) {
+async function getDetectedDevices(req, res) {
   try {
     const { status } = req.query;
 
@@ -16,7 +16,7 @@ export async function getDetectedDevices(req, res) {
 }
 
 // GET /devices/history
-export async function getDeviceHistory(req, res) {
+async function getDeviceHistory(req, res) {
   try {
     const devices = await Device.find().sort({ ultimaDeteccao: -1 });
     res.status(200).json(devices);
@@ -26,7 +26,7 @@ export async function getDeviceHistory(req, res) {
 }
 
 // GET /devices/:mac
-export async function getDeviceByMac(req, res) {
+async function getDeviceByMac(req, res) {
   try {
     const { mac } = req.params;
     const device = await Device.findOne({ mac });
@@ -42,7 +42,7 @@ export async function getDeviceByMac(req, res) {
 }
 
 // POST /devices/classify
-export async function classifyDevice(req, res) {
+async function classifyDevice(req, res) {
   try {
     const { mac, status, nome } = req.body;
 
@@ -68,3 +68,10 @@ export async function classifyDevice(req, res) {
     res.status(500).json({ message: 'Erro ao classificar o dispositivo', error });
   }
 }
+
+module.exports = {
+  getDetectedDevices,
+  getDeviceHistory,
+  getDeviceByMac,
+  classifyDevice,
+};
