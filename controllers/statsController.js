@@ -1,28 +1,69 @@
-const getStatsOverview = (req, res) => {
-  res.json({
-    totalDispositivos: 23,
-    totalUsuarios: 7,
-    totalChamadas: 124,
-    conhecidos: 12,
-    desconhecidos: 11,
-  });
+const Device = require('../models/Device');
+
+// GET /stats/overview
+const getStatsOverview = async (req, res) => {
+  try {
+    const totalDispositivos = await Device.countDocuments();
+    const conhecidos = await Device.countDocuments({ status: 'conhecido' });
+    const desconhecidos = await Device.countDocuments({ status: 'desconhecido' });
+
+    res.json({
+      totalDispositivos,
+      conhecidos,
+      desconhecidos,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar estatísticas', error });
+  }
 };
 
-const getFrequentUsers = (req, res) => {
-  res.json([
-    { mac: 'AA:BB:CC:DD:EE:01', vezes: 34 },
-    { mac: 'AA:BB:CC:DD:EE:02', vezes: 29 },
-    { mac: 'AA:BB:CC:DD:EE:03', vezes: 22 },
-    { mac: 'AA:BB:CC:DD:EE:04', vezes: 18 },
-    { mac: 'AA:BB:CC:DD:EE:05', vezes: 11 },
-  ]);
+// GET /stats/frequent-users
+const getFrequentUsers = async (req, res) => {
+  try {
+    const topDispositivos = await Device.find()
+      .sort({ vezesDetectado: -1 })
+      .limit(5)
+      .select('mac vezesDetectado -_id'); // Só os campos necessários
+
+    const resultado = topDispositivos.map(d => ({
+      mac: d.mac,
+      vezes: d.vezesDetectado,
+    }));
+
+    res.json(resultado);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar usuários frequentes', error });
+  }
 };
 
-const getDevicesPerDay = (req, res) => {
-  res.json({
-    dias: ['2025-06-01', '2025-06-02', '2025-06-03'],
-    dispositivos: [5, 8, 4],
-  });
+// GET /stats/devices-per-day?data=2025-06-01
+const getDevicesPerDay = async (req, res) => {
+  try {
+    const { data } = req.query;
+
+    if (!data) {
+      return res.status(400).json({ message: 'Parâmetro "data" é obrigatório (YYYY-MM-DD)' });
+    }
+
+    const inicio = new Date(data);
+    const fim = new Date(data);
+    fim.setDate(fim.getDate() + 1);
+
+    const dispositivos = await Device.find({
+      ultimaDeteccao: {
+        $gte: inicio,
+        $lt: fim,
+      },
+    });
+
+    res.json({
+      data,
+      quantidade: dispositivos.length,
+      dispositivos,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar dispositivos por data', error });
+  }
 };
 
 module.exports = {

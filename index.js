@@ -20,18 +20,23 @@ app.use('/stats', statsRoutes);
 app.use('/devices', deviceRoutes);
 app.use('/notifications', notificationRoutes);
 // app.use('/settings', settingsRoutes);
+const { DetectaMac } = require('./controllers/detectorController.js');
+
 
 app.get('/', (req, res) => {
   res.send('API funcionando 🚀');
 });
 
-app.post('/teste', (req, res) => {
-  console.log(req.body); 
-  res.json({
-    mensagem: 'Corpo recebido com sucesso ✅',
-    dadosRecebidos: req.body,
-  });
-});
+app.post('/teste', DetectaMac);
+
+// app.post('/teste', (req, res) => {
+//   console.log(req.body); 
+//   res.json({
+//     mensagem: 'Corpo recebido com sucesso ✅',
+//     dadosRecebidos: req.body,
+//     //{ MAC: '7a:32:d1:89:ee:ba', RSSI: '-65' }
+//   });
+// });
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
