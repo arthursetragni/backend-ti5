@@ -1,4 +1,5 @@
 const express = require('express');
+
 const dotenv = require('dotenv');
 const cors = require('cors');
 const statsRoutes = require('./routes/statsRoutes.js');
@@ -8,6 +9,7 @@ const settingsRoutes = require('./routes/settingsRoutes.js');
 const connectDB = require('./config/db.js');
 const mongoose = require('mongoose');
 
+
 dotenv.config();
 
 const app = express();
@@ -15,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
 
 app.use('/stats', statsRoutes);
 app.use('/devices', deviceRoutes);
@@ -26,6 +29,7 @@ const { DetectaMac } = require('./controllers/detectorController.js');
 app.get('/', (req, res) => {
   res.send('API funcionando 🚀');
 });
+
 
 app.post('/teste', DetectaMac);
 
@@ -53,3 +57,4 @@ mongoose.connect(MONGODB_URI, {
 .catch((err) => {
   console.error('🔴 Erro ao conectar no MongoDB:', err);
 });
+
