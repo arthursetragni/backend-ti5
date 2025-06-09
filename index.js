@@ -44,7 +44,7 @@ app.post('/teste', DetectaMac);
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI, {
+mongoose.connect("mongodb://mongo:LwnxhheyUfNyzZvuzRWNDoVlnuJeNUSr@switchback.proxy.rlwy.net:45371", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
