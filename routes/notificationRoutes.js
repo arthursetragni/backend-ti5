@@ -6,7 +6,7 @@ const {
 
 const router = express.Router();
 
-router.get('/', getNotifications);           // Lista de notificações recentes
-router.post('/toggle', toggleNotifications); // Ativar/desativar notificações
+router.get('/', getNotifications);          
+router.post('/toggle', toggleNotifications);
 
 module.exports = router;

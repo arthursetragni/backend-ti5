@@ -19,7 +19,7 @@ app.use(express.json());
 app.use('/stats', statsRoutes);
 app.use('/devices', deviceRoutes);
 app.use('/notifications', notificationRoutes);
-// app.use('/settings', settingsRoutes);
+app.use('/settings', settingsRoutes);
 const { DetectaMac } = require('./controllers/detectorController.js');
 
 
