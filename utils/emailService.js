@@ -26,7 +26,17 @@ async function enviarNotificacaoDispositivo(mac) {
       text: `Um novo dispositivo foi detectado com o MAC address: ${mac}`,
     };
 
-    const info = await transporter.sendMail(mailOptions);
+    const info = await new Promise((resolve, reject) => {
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.error('Erro ao enviar email:', err);
+          reject(err);
+        } else {
+          resolve(info);
+        }
+      });
+    });
+
     console.log('📧 Email enviado:', info.response);
   } catch (error) {
     console.error('❌ Erro ao enviar email:', error);
