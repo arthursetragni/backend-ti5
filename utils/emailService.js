@@ -20,7 +20,7 @@ async function enviarNotificacaoDispositivo(mac) {
     }
 
     const mailOptions = {
-      from: '"Eu mesmo" <1446329@sga.pucminas.br>',
+      from: '"Werbby - Um novo dispositivo foi detectado!" <1446329@sga.pucminas.br>',
       to: usuario.email,
       subject: 'Novo dispositivo detectado',
       text: `Um novo dispositivo foi detectado com o MAC address: ${mac}`,
