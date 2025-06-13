@@ -6,6 +6,6 @@ const { getSettings, updateSettings } = require('../controllers/settingsControll
 router.get('/', getSettings);
 
 // POST /settings – Atualizar email
-//router.post('/', updateSettings);
+router.post('/', updateSettings);
 
 module.exports = router;
